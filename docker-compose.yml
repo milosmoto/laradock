@@ -141,16 +141,26 @@ services:
 ### MySQL Container #########################################
 
     mysql:
-        build: ./mysql
-        volumes_from:
-            - volumes_data
+        container_name: tms-mysql
+        image: percona:5.6
         ports:
             - "3306:3306"
         environment:
-            - MYSQL_DATABASE=${MYSQL_DATABASE}
-            - MYSQL_USER=${MYSQL_USER}
-            - MYSQL_PASSWORD=${MYSQL_PASSWORD}
-            - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: newtms
+
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        depends_on:
+            - mysql
+        links:
+            - mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            PMA_HOST: mysql
+            PMA_PORT: 3306
+        ports:
+            - 8095:80
 
 ### MongoDB Container #######################################
 

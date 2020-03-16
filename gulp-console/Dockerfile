@@ -23,7 +23,7 @@ RUN mkdir .npm && chmod 777 .npm &&\
 RUN npm install bower -g --loglevel error &&\
   npm install gulp -g --loglevel error
 
-COPY ./node_modules $HOME/node_modules
+#COPY ./node_modules $HOME/node_modules
 COPY ./client $HOME/client
 COPY ./super $HOME/super
 COPY ./school $HOME/school
@@ -41,7 +41,7 @@ RUN npm install --loglevel error
 USER root
 RUN cd $HOME/client && bower install --allow-root && bower update --allow-root
 
-COPY ./node_modules $HOME/node_modules
+#COPY ./node_modules $HOME/node_modules
 COPY ./client $HOME/client
 COPY ./super $HOME/super
 COPY ./school $HOME/school
